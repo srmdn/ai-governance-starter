@@ -1,25 +1,36 @@
 # Security Policy
 
-## Reporting a Vulnerability
+## Reporting
 
-Please report suspected vulnerabilities privately.
+Report vulnerabilities privately. Do not open public issues for active vulnerabilities.
 
 - Primary contact: `security@your-project.org`
-- Backup contact: open a private security advisory in GitHub
+- Alternate: private GitHub security advisory
 
 Include:
-- affected component and version/commit
-- impact and exploitation conditions
-- proof of concept or reproduction steps
-- suggested mitigation if available
+- affected versions/commits
+- reproduction steps or PoC
+- impact assessment
+- suggested mitigation
 
 ## Response Targets
 
-- Acknowledgement: within 72 hours
-- Initial triage: within 7 days
-- Coordinated remediation plan: as soon as validated
+- acknowledge within 72 hours
+- initial triage within 7 days
+- remediation/disclosure plan after validation
 
-## Disclosure Policy
+## Coordinated Disclosure
 
-Do not publicly disclose vulnerabilities before maintainers confirm a fix or
-mitigation path and a coordinated disclosure date.
+Please wait for a fix or agreed mitigation window before public disclosure.
+
+## Portable vs Project-Specific
+
+Portable:
+- private reporting requirement
+- response-time targets
+- coordinated disclosure flow
+
+Project-specific:
+- security mailbox
+- severity taxonomy
+- SLA exceptions

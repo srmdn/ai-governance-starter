@@ -1,49 +1,60 @@
-# AI Governance Starter
+# ai-governance-starter
 
-A practical starter kit for running an open-source project that uses AI responsibly.
+Reusable starter kit for AI-assisted open source projects.
 
-This repository provides policy, process, and templates for:
-- transparent AI-assisted development
-- risk classification and review
-- model/provider standards
-- incident reporting and response
-- governance decisions with traceable records
+## Design Goals
 
-## Who This Is For
+1. Model-agnostic governance (Claude, ChatGPT, Codex, and others)
+2. No AI branding/co-author commit trailers in git history
+3. Contributor-friendly enforcement with clear recovery steps
+4. Ready-to-copy templates for other repos
 
-Use this starter if your project:
-- ships features powered by AI models, or
-- uses AI heavily in software development and wants clear disclosure rules.
+## Included Files
 
-## Repository Structure
-
-- `GOVERNANCE.md`: project roles, decision model, and voting/escalation rules
-- `CONTRIBUTING.md`: contribution process, including AI-use disclosure requirements
-- `SECURITY.md`: security reporting policy and SLAs
-- `CODE_OF_CONDUCT.md`: expected community behavior
-- `docs/ai-policy.md`: AI usage and safety baseline policy
-- `docs/risk-assessment-rubric.md`: risk tiers and control requirements
-- `docs/model-provider-standards.md`: provider/model selection checklist
-- `docs/incident-response.md`: AI incident process
-- `docs/decisions/`: architecture/policy decision records
-- `.github/`: issue and pull request templates
+- `AGENTS.md`
+- `CONTRIBUTING.md`
+- `SECURITY.md`
+- `CODEOWNERS`
+- `.github/pull_request_template.md`
+- `.gitlab/merge_request_templates/Default.md`
+- `scripts/check-commit-attribution.sh`
+- `.github/workflows/commit-attribution-check.yml`
+- `.gitlab-ci.yml`
+- `docs/AI-COMMIT-CLEANUP.md`
 
 ## Quick Start
 
-1. Copy this repository (or use it as a template).
-2. Update project metadata and owner names in `GOVERNANCE.md` and `SECURITY.md`.
-3. Decide your minimum controls in `docs/risk-assessment-rubric.md`.
-4. Enforce PR disclosure via `.github/pull_request_template.md`.
-5. Begin recording key governance choices in `docs/decisions/`.
+```sh
+git clone <this-repo>
+cd ai-governance-starter
+scripts/check-commit-attribution.sh HEAD
+```
 
-## Suggested Workflow
+## Copy Into an Existing Repo
 
-1. Classify each new AI feature by risk tier.
-2. Document model/provider choice and safety controls.
-3. Require contributor AI-use disclosure in each PR.
-4. Capture major decisions with a decision record.
-5. Run periodic governance review and publish outcomes.
+```sh
+cp AGENTS.md CONTRIBUTING.md SECURITY.md CODEOWNERS /path/to/repo/
+mkdir -p /path/to/repo/scripts /path/to/repo/docs
+cp scripts/check-commit-attribution.sh /path/to/repo/scripts/
+cp docs/AI-COMMIT-CLEANUP.md /path/to/repo/docs/
+mkdir -p /path/to/repo/.github/workflows /path/to/repo/.gitlab/merge_request_templates
+cp .github/pull_request_template.md /path/to/repo/.github/
+cp .github/workflows/commit-attribution-check.yml /path/to/repo/.github/workflows/
+cp .gitlab/merge_request_templates/Default.md /path/to/repo/.gitlab/merge_request_templates/
+cp .gitlab-ci.yml /path/to/repo/
+```
+
+Then customize project-specific fields:
+- contacts in `SECURITY.md`
+- owners in `CODEOWNERS`
+- reviewer/escalation expectations in `CONTRIBUTING.md`
+
+## Local One-Step Test
+
+```sh
+scripts/check-commit-attribution.sh HEAD
+```
 
 ## License
 
-MIT (see `LICENSE`).
+MIT

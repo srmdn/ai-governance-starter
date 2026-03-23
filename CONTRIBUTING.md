@@ -1,41 +1,63 @@
 # Contributing
 
-Thank you for contributing.
+Thanks for contributing.
 
-## Ground Rules
+## Quick Rules
 
-- Be respectful and follow `CODE_OF_CONDUCT.md`.
-- Discuss major changes before implementation.
-- Keep pull requests small and reviewable.
-- Disclose meaningful AI assistance in each PR.
+- Be respectful and constructive.
+- Keep pull requests focused and reviewable.
+- Humans own final code, tests, docs, and commits.
+- Disclose meaningful AI assistance in PR/MR descriptions.
 
-## Contribution Flow
+## AI Contribution Policy
 
-1. Open an issue for bug reports, proposals, or policy exceptions.
-2. Create a branch from `main`.
-3. Make changes with tests/docs as needed.
-4. Submit a PR using the project PR template.
-5. Address review comments and merge once approved.
+This project allows AI-assisted work, but requires human accountability.
 
-## AI Assistance Disclosure
+Required in each PR/MR:
+- AI tools/models used (if any)
+- files or sections materially influenced by AI
+- human validation performed (tests, review, security/license checks)
 
-Each PR must include:
-- whether AI tools were used
-- which tools/models were used
-- what parts were AI-generated or AI-assisted
-- what human validation was performed
+Prohibited in commit history:
+- AI branding lines and AI co-author trailers
+- automated attribution text injected by AI tools
 
-Do not submit AI-generated content you did not review for correctness,
-security, licensing, and policy compliance.
+Run this before pushing:
 
-## Commit Conventions (Recommended)
+```sh
+scripts/check-commit-attribution.sh
+```
 
-Use clear, imperative commit messages, for example:
-- `docs: add high-risk model evaluation checklist`
-- `policy: update incident severity rubric`
-- `governance: clarify escalation quorum`
+## Recovery if Check Fails
 
-## Decision Records
+- Last commit only:
 
-For major technical or policy decisions, add a decision record under
-`docs/decisions/` based on the provided template.
+```sh
+git commit --amend
+```
+
+- Earlier commits:
+
+```sh
+git rebase -i <base-commit>
+```
+
+- After rewriting pushed history:
+
+```sh
+git push --force-with-lease
+```
+
+Detailed runbook: `docs/AI-COMMIT-CLEANUP.md`
+
+## Portable vs Project-Specific
+
+Portable:
+- AI disclosure expectations
+- attribution check policy
+- cleanup commands
+
+Project-specific:
+- reviewer approval thresholds
+- branch naming rules
+- test matrix and release requirements

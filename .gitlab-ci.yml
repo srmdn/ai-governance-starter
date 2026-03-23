@@ -1,0 +1,17 @@
+stages:
+  - lint
+
+commit_attribution_check:
+  stage: lint
+  image: alpine:3.20
+  before_script:
+    - apk add --no-cache git
+    - git fetch origin "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" || true
+  script:
+    - |
+      if [ -n "${CI_MERGE_REQUEST_TARGET_BRANCH_SHA:-}" ]; then
+        RANGE="${CI_MERGE_REQUEST_TARGET_BRANCH_SHA}..${CI_COMMIT_SHA}"
+      else
+        RANGE="HEAD~1..HEAD"
+      fi
+      scripts/check-commit-attribution.sh "$RANGE"

@@ -26,5 +26,5 @@ Portable:
 - attribution-check confirmation
 
 Project-specific:
-- required reviewers
-- release notes format
+- required approvers
+- deployment notes
