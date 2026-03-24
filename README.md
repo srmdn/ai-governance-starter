@@ -12,6 +12,8 @@ Reusable starter kit for AI-assisted open source projects.
 ## Included Files
 
 - `AGENTS.md`
+- `CLAUDE.md`
+- `.env.example`
 - `CONTRIBUTING.md`
 - `SECURITY.md`
 - `CODEOWNERS`
@@ -41,7 +43,7 @@ scripts/check-commit-attribution.sh HEAD
 ## Copy Into an Existing Repo
 
 ```sh
-cp .gitignore AGENTS.md CONTRIBUTING.md SECURITY.md CODEOWNERS /path/to/repo/
+cp .gitignore .env.example AGENTS.md CLAUDE.md CONTRIBUTING.md SECURITY.md CODEOWNERS /path/to/repo/
 mkdir -p /path/to/repo/scripts /path/to/repo/docs
 cp scripts/check-commit-attribution.sh /path/to/repo/scripts/
 cp docs/AI-COMMIT-CLEANUP.md /path/to/repo/docs/
