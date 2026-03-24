@@ -55,6 +55,10 @@ Then customize project-specific fields:
 scripts/check-commit-attribution.sh HEAD
 ```
 
+## Related
+
+**[ai-dev-playbook](https://gitlab.com/srmdn/ai-dev-playbook)** — practical day-to-day guide for working efficiently with AI coding assistants: token optimization, session hygiene, git workflow, tool switching, and when not to use AI. Complements this repo's governance rules.
+
 ## License
 
 MIT
