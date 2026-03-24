@@ -18,6 +18,7 @@ Reusable starter kit for AI-assisted open source projects.
 - `.github/pull_request_template.md`
 - `.gitlab/merge_request_templates/Default.md`
 - `scripts/check-commit-attribution.sh`
+- `scripts/pre-commit` (git hook for local enforcement)
 - `.github/workflows/commit-attribution-check.yml`
 - `.gitlab-ci.yml`
 - `docs/AI-COMMIT-CLEANUP.md`
@@ -28,6 +29,12 @@ Reusable starter kit for AI-assisted open source projects.
 ```sh
 git clone <this-repo>
 cd ai-governance-starter
+
+# Install the pre-commit hook (local enforcement)
+cp scripts/pre-commit .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
+
+# Run the attribution check manually
 scripts/check-commit-attribution.sh HEAD
 ```
 

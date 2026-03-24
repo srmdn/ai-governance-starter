@@ -22,7 +22,14 @@ Prohibited in commit history:
 - AI branding lines and AI co-author trailers
 - automated attribution text injected by AI tools
 
-Run this before pushing:
+Install the pre-commit hook to catch issues locally before push:
+
+```sh
+cp scripts/pre-commit .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
+```
+
+Or run the check manually:
 
 ```sh
 scripts/check-commit-attribution.sh
