@@ -21,6 +21,7 @@ Reusable starter kit for AI-assisted open source projects.
 - `.github/workflows/commit-attribution-check.yml`
 - `.gitlab-ci.yml`
 - `docs/AI-COMMIT-CLEANUP.md`
+- `docs/gitignore.md`
 
 ## Quick Start
 
@@ -33,7 +34,7 @@ scripts/check-commit-attribution.sh HEAD
 ## Copy Into an Existing Repo
 
 ```sh
-cp AGENTS.md CONTRIBUTING.md SECURITY.md CODEOWNERS /path/to/repo/
+cp .gitignore AGENTS.md CONTRIBUTING.md SECURITY.md CODEOWNERS /path/to/repo/
 mkdir -p /path/to/repo/scripts /path/to/repo/docs
 cp scripts/check-commit-attribution.sh /path/to/repo/scripts/
 cp docs/AI-COMMIT-CLEANUP.md /path/to/repo/docs/
