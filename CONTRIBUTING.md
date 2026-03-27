@@ -77,3 +77,21 @@ Project-specific:
 - reviewer approval thresholds
 - branch naming rules
 - test matrix and release requirements
+
+## Testing Discipline
+
+Run the project's test suite before every commit. Document the command in your
+`CLAUDE.md` or `AGENTS.md` so any AI tool knows what to run:
+
+```markdown
+## Testing
+Run before every commit: <test command>
+All tests must pass before committing.
+Write tests for new code in the same commit.
+```
+
+This rule is universal. The specific command is project-specific (`go test ./...`,
+`npm test`, `pytest`, etc.).
+
+**Why:** AI tools assume a task is done after writing code. Making the test command
+explicit removes that ambiguity and prevents silent regressions.
