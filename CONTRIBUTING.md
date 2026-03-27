@@ -57,6 +57,15 @@ git push --force-with-lease
 
 Detailed runbook: `docs/AI-COMMIT-CLEANUP.md`
 
+## Writing Conventions
+
+Apply to commit messages, docs, README, About section, release notes, and any written content:
+
+- No em dashes (`—`). Use a colon, semicolon, or rewrite the sentence.
+- No AI co-author trailers or AI branding in any written output.
+
+**Why:** Em dashes are a common AI writing habit. Banning them keeps human and AI output consistent and easier to scan.
+
 ## Portable vs Project-Specific
 
 Portable:
