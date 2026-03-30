@@ -32,3 +32,9 @@ Applies to:
 
 Policy exceptions must be documented with rationale, scope, expiration date,
 and owner using the policy exception issue template.
+
+## Related Business Policies
+
+- `docs/business-ai-policy.md`
+- `docs/ai-procurement-checklist.md`
+- `docs/go-to-market-risk-checklist.md`

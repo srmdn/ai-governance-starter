@@ -25,6 +25,9 @@ Reusable starter kit for AI-assisted open source projects.
 - `.gitlab-ci.yml`
 - `docs/AI-COMMIT-CLEANUP.md`
 - `docs/gitignore.md`
+- `docs/business-ai-policy.md`
+- `docs/ai-procurement-checklist.md`
+- `docs/go-to-market-risk-checklist.md`
 
 ## Quick Start
 
