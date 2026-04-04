@@ -1,6 +1,9 @@
 #!/usr/bin/env sh
-# Pre-commit hook: blocks AI attribution lines and sensitive data from being committed.
+# Pre-commit hook: blocks AI attribution lines, sensitive data, and lint errors.
 # Install: cp scripts/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+#
+# Skip quality checks only (not security checks):
+#   SKIP_LINT=1 git commit
 set -eu
 
 PASS=0
@@ -24,7 +27,7 @@ fi
 
 # ── 2. .env file check ────────────────────────────────────────────────────────
 
-ENV_FILES=
+ENV_FILES=$(git diff --cached --name-only | grep -E '(^|/)\.env$|(^|/)\.env\.' || true)
 if [ -n "$ENV_FILES" ]; then
   echo "[pre-commit] Blocked: .env file(s) staged for commit:"
   echo "$ENV_FILES" | sed 's/^/  /'
@@ -35,7 +38,7 @@ fi
 
 # ── 3. Sensitive filename check ───────────────────────────────────────────────
 
-SENSITIVE_FILES=
+SENSITIVE_FILES=$(git diff --cached --name-only | grep -iE '\.(pem|key|p12|pfx|pkcs12|cert)$|(^|/)(credentials|secrets)(\.[a-z]+)?$' || true)
 if [ -n "$SENSITIVE_FILES" ]; then
   echo "[pre-commit] Blocked: sensitive file(s) staged for commit:"
   echo "$SENSITIVE_FILES" | sed 's/^/  /'
@@ -48,7 +51,7 @@ fi
 # Scans staged file content for common secret patterns.
 
 SECRET_PATTERN="(password|passwd|secret|api_key|apikey|access_token|auth_token|private_key)[[:space:]]*[:=][[:space:]]*['\"][^'\"]{6,}['\"]"
-MATCHED=
+MATCHED=$(git diff --cached -- '*.go' '*.ts' '*.tsx' '*.js' '*.jsx' '*.py' | grep '^+' | grep -iE "$SECRET_PATTERN" || true)
 if [ -n "$MATCHED" ]; then
   echo "[pre-commit] Warning: possible hardcoded secret detected in staged changes:"
   echo "$MATCHED" | sed 's/^/  /' | head -10
@@ -56,6 +59,59 @@ if [ -n "$MATCHED" ]; then
   echo "Review the above. If intentional, use environment variables instead."
   echo "If a false positive, proceed with: git commit --no-verify (use sparingly)."
   PASS=1
+fi
+
+# ── 5. Code quality checks ────────────────────────────────────────────────────
+# Auto-detects stack from project files. Skip with: SKIP_LINT=1 git commit
+
+if [ "${SKIP_LINT:-0}" != "1" ]; then
+
+  # Go
+  if [ -f "go.mod" ]; then
+    echo "[pre-commit] Running go vet..."
+    if ! go vet ./... 2>&1; then
+      echo "[pre-commit] Blocked: go vet failed."
+      PASS=1
+    fi
+
+    if command -v golangci-lint >/dev/null 2>&1; then
+      echo "[pre-commit] Running golangci-lint..."
+      if ! golangci-lint run ./... 2>&1; then
+        echo "[pre-commit] Blocked: golangci-lint failed."
+        PASS=1
+      fi
+    fi
+
+    FMT=$(gofmt -l . 2>/dev/null || true)
+    if [ -n "$FMT" ]; then
+      echo "[pre-commit] Blocked: unformatted Go files (run gofmt -w .):"
+      echo "$FMT" | sed 's/^/  /'
+      PASS=1
+    fi
+  fi
+
+  # Node / TypeScript
+  if [ -f "package.json" ]; then
+    if node -e "const p=require('./package.json'); process.exit(p.scripts&&p.scripts.lint?0:1)" 2>/dev/null; then
+      echo "[pre-commit] Running npm run lint..."
+      if ! npm run lint 2>&1; then
+        echo "[pre-commit] Blocked: lint failed."
+        PASS=1
+      fi
+    fi
+  fi
+
+  # Python
+  if [ -f "pyproject.toml" ] || [ -f "requirements.txt" ]; then
+    if command -v ruff >/dev/null 2>&1; then
+      echo "[pre-commit] Running ruff check..."
+      if ! ruff check . 2>&1; then
+        echo "[pre-commit] Blocked: ruff check failed."
+        PASS=1
+      fi
+    fi
+  fi
+
 fi
 
 # ── Result ────────────────────────────────────────────────────────────────────
