@@ -1,6 +1,6 @@
 # ai-governance-starter
 
-Reusable starter kit for AI-assisted open source projects.
+Reusable starter kit for AI-assisted open source projects. Very useful starter-kit
 
 ## Design Goals
 
