@@ -4,7 +4,7 @@ Reusable starter kit for AI-assisted open source projects. Very useful starter-k
 
 ## Design Goals
 
-1. Model-agnostic governance (Claude, ChatGPT, Codex, and others)
+1. Model-agnostic governance (Claude, ChatGPT, Codex, GLM and others)
 2. No AI branding/co-author commit trailers in git history
 3. Contributor-friendly enforcement with clear recovery steps
 4. Ready-to-copy templates for other repos
